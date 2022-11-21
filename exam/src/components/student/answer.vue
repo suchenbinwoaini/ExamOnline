@@ -1,77 +1,77 @@
 <!--考生答题界面-->
 <template>
   <div id="answer">
-    <!--顶部信息栏-->
+<!--    &lt;!&ndash;顶部信息栏&ndash;&gt;-->
      <div class="top">
-       <ul class="item">
-         <li><i class="iconfont icon-menufold icon20" ref="toggle" @click="slider_flag = !slider_flag"></i></li>
-         <li>{{examData.type}}-{{examData.source}}</li>
-         <li @click="flag = !flag">
-           <i class="iconfont icon-user icon20"></i>
-           <div class="msg"  v-if="flag" @click="flag = !flag">
-             <p>姓名：{{userInfo.name}}</p>
-             <p>准考证号:  {{userInfo.id}}</p>
-           </div>
-         </li>
-         <li><i class="iconfont icon-arrLeft icon20"></i></li>
-       </ul>
-     </div>
-     <div class="flexarea">
-        <!--左边题目编号区-->
-        <transition name="slider-fade">
-          <div class="left" v-if="slider_flag">
-            <ul class="l-top">
-              <li>
-                <a href="javascript:;"></a>
-                <span>当前</span>
-              </li>
-              <li>
-                <a href="javascript:;"></a>
-                <span>未答</span>
-              </li>
-              <li>
-                <a href="javascript:;"></a>
-                <span>已答</span>
-              </li>
-              <li>
-                <a href="javascript:;"></a>
-                <span>标记</span>
-              </li>
-            </ul>
-            <div class="l-bottom">
-              <div class="item">
-                <p>选择题部分</p>
-                <ul>
-                  <li v-for="(list, index1) in topic[1]" :key="index1">
-                    <a href="javascript:;"
-                      @click="change(index1)"
-                      :class="{'border': index == index1 && currentType == 1,'bg': bg_flag && topic[1][index1].isClick == true}">
-                      <span :class="{'mark': topic[1][index1].isMark == true}"></span>
-                      {{index1+1}}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="item">
-                <p>填空题部分</p>
-                <ul>
-                  <li v-for="(list, index2) in topic[2]" :key="index2">
-                    <a href="javascript:;" @click="fill(index2)" :class="{'border': index == index2 && currentType == 2,'bg': fillAnswer[index2][3] == true}"><span :class="{'mark': topic[2][index2].isMark == true}"></span>{{topicCount[0]+index2+1}}</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="item">
-                <p>判断题部分</p>
-                <ul>
-                  <li v-for="(list, index3) in topic[3]" :key="index3">
-                    <a href="javascript:;" @click="judge(index3)" :class="{'border': index == index3 && currentType == 3,'bg': bg_flag && topic[3][index3].isClick == true}"><span :class="{'mark': topic[3][index3].isMark == true}"></span>{{topicCount[0]+topicCount[1]+index3+1}}</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="final" @click="commit()">结束考试</div>
-            </div>
-          </div>
-        </transition>
+<!--       <ul class="item">-->
+<!--         <li><i class="iconfont icon-menufold icon20" ref="toggle" @click="slider_flag = !slider_flag"></i></li>-->
+<!--         <li>{{examData.type}}-{{examData.source}}</li>-->
+<!--         <li @click="flag = !flag">-->
+<!--           <i class="iconfont icon-user icon20"></i>-->
+<!--           <div class="msg"  v-if="flag" @click="flag = !flag">-->
+<!--             <p>姓名：{{userInfo.name}}</p>-->
+<!--             <p>准考证号:  {{userInfo.id}}</p>-->
+<!--           </div>-->
+<!--         </li>-->
+<!--         <li><i class="iconfont icon-arrLeft icon20"></i></li>-->
+<!--       </ul>-->
+<!--     </div>-->
+<!--     <div class="flexarea">-->
+<!--        &lt;!&ndash;左边题目编号区&ndash;&gt;-->
+<!--        <transition name="slider-fade">-->
+<!--          <div class="left" v-if="slider_flag">-->
+<!--            <ul class="l-top">-->
+<!--              <li>-->
+<!--                <a href="javascript:;"></a>-->
+<!--                <span>当前</span>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="javascript:;"></a>-->
+<!--                <span>未答</span>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="javascript:;"></a>-->
+<!--                <span>已答</span>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="javascript:;"></a>-->
+<!--                <span>标记</span>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--            <div class="l-bottom">-->
+<!--              <div class="item">-->
+<!--                <p>选择题部分</p>-->
+<!--                <ul>-->
+<!--                  <li v-for="(list, index1) in topic[1]" :key="index1">-->
+<!--                    <a href="javascript:;"-->
+<!--                      @click="change(index1)"-->
+<!--                      :class="{'border': index == index1 && currentType == 1,'bg': bg_flag && topic[1][index1].isClick == true}">-->
+<!--                      <span :class="{'mark': topic[1][index1].isMark == true}"></span>-->
+<!--                      {{index1+1}}-->
+<!--                    </a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              <div class="item">-->
+<!--                <p>填空题部分</p>-->
+<!--                <ul>-->
+<!--                  <li v-for="(list, index2) in topic[2]" :key="index2">-->
+<!--                    <a href="javascript:;" @click="fill(index2)" :class="{'border': index == index2 && currentType == 2,'bg': fillAnswer[index2][3] == true}"><span :class="{'mark': topic[2][index2].isMark == true}"></span>{{topicCount[0]+index2+1}}</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              <div class="item">-->
+<!--                <p>判断题部分</p>-->
+<!--                <ul>-->
+<!--                  <li v-for="(list, index3) in topic[3]" :key="index3">-->
+<!--                    <a href="javascript:;" @click="judge(index3)" :class="{'border': index == index3 && currentType == 3,'bg': bg_flag && topic[3][index3].isClick == true}"><span :class="{'mark': topic[3][index3].isMark == true}"></span>{{topicCount[0]+topicCount[1]+index3+1}}</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              <div class="final" @click="commit()">结束考试</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </transition>-->
 <!--        右边选择答题区-->
         <transition name="slider-fade">
         <div class="right">
@@ -89,13 +89,14 @@
                 <el-radio :label="3">{{showAnswer.answerC}}</el-radio>
                 <el-radio :label="4">{{showAnswer.answerD}}</el-radio>
               </el-radio-group>
-              <div class="analysis" v-if="isPractice">
-                <ul>
-                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{reduceAnswer.rightAnswer}}</span></li>
-                  <li><el-tag>题目解析：</el-tag></li>
-                  <li>{{reduceAnswer.analysis == null ? '暂无解析': reduceAnswer.analysis}}</li>
-                </ul>
-              </div>
+<!--              练习解析-->
+<!--              <div class="analysis" v-if="isPractice">-->
+<!--                <ul>-->
+<!--                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{reduceAnswer.rightAnswer}}</span></li>-->
+<!--                  <li><el-tag>题目解析：</el-tag></li>-->
+<!--                  <li>{{reduceAnswer.analysis == null ? '暂无解析': reduceAnswer.analysis}}</li>-->
+<!--                </ul>-->
+<!--              </div>-->
             </div>
             <div class="fill" v-if="currentType == 2">
               <div v-for="(item,currentIndex) in part" :key="currentIndex">
@@ -105,26 +106,28 @@
                   @blur="fillBG">
                 </el-input>
               </div>
-              <div class="analysis" v-if="isPractice">
-                <ul>
-                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{topic[2][index].answer}}</span></li>
-                  <li><el-tag>题目解析：</el-tag></li>
-                  <li>{{topic[2][index].analysis == null ? '暂无解析': topic[2][index].analysis}}</li>
-                </ul>
-              </div>
+<!--              练习解析-->
+<!--              <div class="analysis" v-if="isPractice">-->
+<!--                <ul>-->
+<!--                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{topic[2][index].answer}}</span></li>-->
+<!--                  <li><el-tag>题目解析：</el-tag></li>-->
+<!--                  <li>{{topic[2][index].analysis == null ? '暂无解析': topic[2][index].analysis}}</li>-->
+<!--                </ul>-->
+<!--              </div>-->
             </div>
             <div class="judge" v-if="currentType == 3">
               <el-radio-group v-model="judgeAnswer[index]" @change="getJudgeLabel" v-if="currentType == 3">
                 <el-radio :label="1">正确</el-radio>
                 <el-radio :label="2">错误</el-radio>
               </el-radio-group>
-              <div class="analysis" v-if="isPractice">
-                <ul>
-                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{topic[3][index].answer}}</span></li>
-                  <li><el-tag>题目解析：</el-tag></li>
-                  <li>{{topic[3][index].analysis == null ? '暂无解析': topic[3][index].analysis}}</li>
-                </ul>
-              </div>
+<!--              练习解析-->
+<!--              <div class="analysis" v-if="isPractice">-->
+<!--                <ul>-->
+<!--                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{topic[3][index].answer}}</span></li>-->
+<!--                  <li><el-tag>题目解析：</el-tag></li>-->
+<!--                  <li>{{topic[3][index].analysis == null ? '暂无解析': topic[3][index].analysis}}</li>-->
+<!--                </ul>-->
+<!--              </div>-->
             </div>
           </div>
           <div class="operation">
@@ -202,7 +205,6 @@ export default {
       this.userInfo.id = this.$cookies.get("cid")
     },
     calcuScore() { //计算答题分数
-
     },
     getExamData() { //获取当前试卷所有信息
       let date = new Date()
