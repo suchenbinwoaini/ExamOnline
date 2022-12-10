@@ -6,16 +6,16 @@
     <el-row class="padding-50">
       <el-col :span="24">
         <ul class="list">
-          <li class="logo"><i class="iconfont icon-kaoshi"></i><span>Exam-Online</span></li>
-<!--          <li><a href="javascript:;" @click="exam()">我的试卷</a></li>-->
-<!--&lt;!&ndash;          <li><a href="javascript:;" @click="practice()">我的练习</a></li>&ndash;&gt;-->
-<!--          <li><router-link to="/scoreTable">我的分数</router-link></li>-->
+          <li class="logo"><i class="iconfont icon-kaoshi"></i><span>在线考试管理系统</span></li>
+          <li><a href="javascript:;" @click="exam()">我的试卷</a></li>
+          <li><a href="javascript:;" @click="practice()">我的练习</a></li>
+          <li><router-link to="/scoreTable">我的分数</router-link></li>
 
 
-<!--&lt;!&ndash;          可以隐藏&ndash;&gt;-->
-<!--&lt;!&ndash;          <li><router-link to="/message">给我留言</router-link></li>&ndash;&gt;-->
+<!--          可以隐藏-->
+          <li><router-link to="/message">给我留言</router-link></li>
 
-<!--          <li><a href="javascript:;">待定</a></li>-->
+          <li><a href="javascript:;">待定</a></li>
           <li class="right" @mouseenter="flag = !flag" @mouseleave="flag = !flag">
             <a href="javascript:;"><i class="iconfont icon-Userselect icon"></i>{{user.userName}}</a>
             <div class="msg" v-if="flag">

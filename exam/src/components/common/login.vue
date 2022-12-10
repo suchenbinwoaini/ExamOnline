@@ -54,7 +54,7 @@
     </el-row>
     <el-row class="footer">
       <el-col>
-        <p class="msg2">版权所有 ©2022 战神小队保留所有权利</p>
+        <p class="msg2">版权所有 ©2022 你说的都队保留所有权利</p>
       </el-col>
     </el-row>
     <section class="remind">
@@ -73,7 +73,7 @@ export default {
       role: 2,
       labelPosition: 'left',
       formLabelAlign: {
-        username: '20154084',
+        username: '20154001',
         password: '123456'
       }
     }
@@ -179,7 +179,7 @@ export default {
   border-radius: 4px;
   padding: 10px 20px;
   display: flex;
-  position: fixed;
+  position: absolute;
   right: 20px;
   bottom: 50%;
   flex-direction: column;
@@ -210,7 +210,7 @@ a:link {
   width: 100%;
   overflow-y: auto;
   height: 100%;
-  background: url('../../assets/img/loginbg.png')center top / cover no-repeat;
+  background: url('../../assets/img/bgimg.png')center top / cover no-repeat;
   background-color: #b6bccdd1 !important;
 }
 #login .main-container {
@@ -266,7 +266,7 @@ a:link {
 }
 .footer .msg2 {
   font-size: 14px;
-  color: #e3e3e3;
+  color: #333333;
   margin-top: 70px;
 }
 .bottom .options {

@@ -1,4 +1,4 @@
-// 给我留言页面
+<!--给我留言页面-->
 <template>
   <div id="message">
     <div class="title">给我留言</div>
@@ -24,8 +24,8 @@
       </div>
       <div class="all">
         <ul class="msglist">
-          <li class="list" 
-          @mouseenter="enter(index)" 
+          <li class="list"
+          @mouseenter="enter(index)"
           @mouseleave="leave(index)"
           v-for="(data,index) in msg" :key="index"
           >
@@ -75,7 +75,7 @@ export default {
     this.getMsg()
   },
   // watch: {
-    
+
   // },
   methods: {
     getMsg() {
@@ -166,7 +166,7 @@ export default {
         this.$message({
           type: 'info',
           message: '取消输入'
-        });       
+        });
       });
     },
     enter(index) {
@@ -240,7 +240,7 @@ export default {
         transition: all .3s ease;
       }
       .comment {
-        margin:-7px 0px; 
+        margin:-7px 0px;
         padding-bottom: 12px;
         font-size: 13px;
         color: #28b2b4;

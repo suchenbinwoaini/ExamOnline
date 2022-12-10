@@ -28,31 +28,39 @@
     </el-pagination>
     <!-- 编辑对话框-->
     <el-dialog
-      title="编辑试卷信息"
+      title="编辑学生信息"
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
       <section class="update">
-        <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="姓名">
+        <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+          <el-form-item label="姓名" prop="studentName">
             <el-input v-model="form.studentName"></el-input>
           </el-form-item>
-          <el-form-item label="学院">
+          <el-form-item label="学院" prop="institute">
             <el-input v-model="form.institute"></el-input>
           </el-form-item>
-          <el-form-item label="专业">
+          <el-form-item label="专业" prop="major">
             <el-input v-model="form.major"></el-input>
           </el-form-item>
-          <el-form-item label="年级">
-            <el-input v-model="form.grade"></el-input>
+          <el-form-item label="年级" prop="grade">
+            <el-select v-model="form.grade">
+              <el-option label="2019" value="2019"></el-option>
+              <el-option label="2020" value="2020"></el-option>
+              <el-option label="2021" value="2021"></el-option>
+              <el-option label="2022" value="2022"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="班级">
+          <el-form-item label="班级" prop="clazz">
             <el-input v-model="form.clazz"></el-input>
           </el-form-item>
-          <el-form-item label="性别">
-            <el-input v-model="form.sex"></el-input>
+          <el-form-item label="性别" prop="sex">
+            <el-select v-model="form.sex" placeholder="请选择性别">
+              <el-option label="男" value="男"></el-option>
+              <el-option label="女" value="女"></el-option>
+            </el-select>
           </el-form-item>
-          <el-form-item label="电话号码">
+          <el-form-item label="电话号码" prop="tel">
             <el-input v-model="form.tel"></el-input>
           </el-form-item>
         </el-form>
@@ -77,6 +85,43 @@ export default {
       },
       dialogVisible: false, //对话框
       form: {}, //保存点击以后当前试卷的信息
+      rules:{
+        studentName:[
+          { required: true, message: '姓名不能为空', trigger: 'blur' },
+          { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
+        ],
+        sex:[
+          {required: true, message: '性别不能为空', trigger: 'blur'}
+        ],
+        institute:[
+          {required: true, message: '学院不能为空', trigger: 'blur'}
+        ],
+        major:[
+          {required: true, message: '专业不能为空', trigger: 'blur'}
+        ],
+        grade:[
+          {required: true, message: '年级不能为空', trigger: 'blur'}
+        ],
+        clazz:[
+          {required: true, message: '班级不能为空', trigger: 'blur'}
+        ],
+        tel:[
+          {required: true, message: '电话不能为空', trigger: 'blur'},
+          {pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/, message: '请输入正确的电话格式', trigger: ['blur','change']}
+        ],
+        email:[
+          { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+        ],
+        cardId:[
+          { required: true, message: '请输入身份证号', trigger: 'blur' },
+          { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号', trigger: ['blur','change']}
+        ],
+        pwd:[
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          {pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/,message: '密码格式不正确', trigger: ['blur','change'] }
+        ]
+      },
     };
   },
   created() {
@@ -112,7 +157,7 @@ export default {
         type: 'danger'
       }).then(()=> { //确认删除
         this.$axios({
-          url: `/api/student/${studentId}`,
+          ImgUrl: `/api/student/${studentId}`,
           method: 'delete',
         }).then(res => {
           this.getStudentInfo()
@@ -122,23 +167,38 @@ export default {
       })
     },
     submit() { //提交更改
-      this.dialogVisible = false
-      this.$axios({
-        url: '/api/student',
-        method: 'put',
-        data: {
-          ...this.form
-        }
-      }).then(res => {
-        console.log(res)
-        if(res.data.code ==200) {
-          this.$message({
-            message: '更新成功',
-            type: 'success'
+
+
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.dialogVisible = false;
+          this.loading=true;
+          alert('submit!');
+          this.$axios({
+            url: '/api/student',
+            method: 'put',
+            data: {
+              ...this.form
+            }
+          }).then(res => {
+            console.log(res)
+            if(res.data.code ==200) {
+              this.$message({
+                message: '更新成功',
+                type: 'success'
+              })
+            }
+            this.getStudentInfo()
           })
+        } else {
+          console.log('error submit!!');
+
+          return false;
         }
-        this.getStudentInfo()
       })
+
+
+
     },
     handleClose(done) { //关闭提醒
       this.$confirm('确认关闭？')
